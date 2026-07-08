@@ -7,11 +7,11 @@
  */
 int exec(char *av[])
 {
-	pid_t cpid; //child PID//
+	pid_t cpid;
 	int finish;
 	extern char **environ;
 
-	cpid = fork(); //creating Child process using fork()// 
+	cpid = fork(); //(cpid = child pid)creating Child process using fork()//
 
 	if (cpid == -1) // check if fork failed//
 	{
