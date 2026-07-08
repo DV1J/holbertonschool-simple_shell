@@ -11,24 +11,24 @@ int exec(char *av[])
 	int finish;
 	extern char **environ;
 
-	cpid = fork(); //(cpid = child pid)creating Child process using fork()//
+	cpid = fork();
 
-	if (cpid == -1) // check if fork failed//
+	if (cpid == -1) 
 	{
-		perror("Fork unsucessful"); //print error message//
+		perror("Fork unsucessful"); 
 		return -1;
 	}
-	else if (cpid == 0) //this code only run inside the child process//
+	else if (cpid == 0)
 	{
-		if (execve(av[0], av, environ) == -1) //if running the command fails//
+		if (execve(av[0], av, environ) == -1)
 		{
-			perror("Execve failed"); //print the system error message//
-			return -1; //return error//
+			perror("Execve failed");
+			return -1; 
 		}
 	}
 	else
 	{
-		wait(&finish); //waiting for child process to finish//
+		wait(&finish);
 	}
 	return 0;
 }
