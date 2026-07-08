@@ -4,19 +4,21 @@ int main(void)
 {
 	char *input;
     char *av[2];
+	int inter = isatty (STDIN_FILENO);
 
     while (1)
     {
-        printf("$ ");
+		if (inter)
+			printf("$ ");
 
         input = get_line();
 
         if (input == NULL)
         {
-            printf("\nExiting shell...\n");
+            if (inter)
+                printf("\nExiting shell...\n");
             break;
         }
-
         if (strcmp(input, "exit") == 0)
         {
             free(input); 
