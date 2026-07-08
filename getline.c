@@ -23,5 +23,5 @@ char *get_line(void)
         buffer[characters - 1] = '\0';
     }
 
-    return buffer;
+    return (buffer);
 }

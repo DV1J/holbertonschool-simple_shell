@@ -3,7 +3,7 @@
 int main(void)
 {
 	char *input;
-    char *av[2];
+	char *av[MAX_ARGS];
 	int inter = isatty (STDIN_FILENO);
 
     while (1)
@@ -25,8 +25,17 @@ int main(void)
             break;
         }
 
-		av[0] = input;
-        av[1] = NULL;
+		if (token(input, av) == 0)
+		{
+			free(input);
+			continue;
+		}
+
+		if (strcmp(av[0], "exit") == 0)
+		{
+			free(input);
+			break;
+		}
         exec(av);
 
         free(input);
