@@ -1,24 +1,23 @@
 #include "shell.h"
 
-int main(void)
+char *get_line(void)
 {
-	char *buffer = NULL;
-	size_t buffersize = 0;
-	ssize_t readline;
+    char *buffer = NULL;
+    size_t bufsize = 0;
+    ssize_t characters;
 
-	while (1)
-	{
-		printf("$ ");
-		fflush(stdout);
+    characters = getline(&buffer, &bufsize, stdin);
+    
+    if (characters == -1)
+    {
+        free(buffer);
+        return NULL;
+    }
 
-		readline = getline(&buffer, &buffersize, stdin);
+    if (buffer[characters - 1] == '\n')
+    {
+        buffer[characters - 1] = '\0';
+    }
 
-		if (readline == -1)
-		{
-			break;
-		}
-		printf("%s", buffer);
-	}
-	free(buffer);
-	return (0);
+    return buffer;
 }
