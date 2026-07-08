@@ -37,6 +37,12 @@ int main(void)
 			free(input);
 			break;
 		}
+if (strcmp(av[0], "env") == 0)
+{
+	env_builtin();
+	free(input);
+	continue;
+}
 		exec(av);
 
 		free(input);

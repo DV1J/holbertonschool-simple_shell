@@ -9,8 +9,16 @@
 #include <string.h>
 
 extern char **environ;
+
+/**
+ * env_builtin - prints the current environment variables
+ *
+ * Return: Always 0 (success)
+ */
+
 int exec(char *av[]);
 char *get_line(void);
 int token(char *line, char *av[]);
+int env_builtin(void);
 
 #endif
