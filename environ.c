@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-extern char **environ;
+#include <shell.h>
 
 /**
  * env_builtin - prints the current environment
