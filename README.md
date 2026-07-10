@@ -46,13 +46,13 @@ total 8
 ...
 ```
 **Description:**
--Creates a new child process using fork()
--Replaces the child process image with the specified command using execve()
--Suspends execution of the parent process using wait() until the child terminates
--Returns 0 on success, or appropriate error statuses if fork or execution fails
+- Creates a new child process using fork()
+- Replaces the child process image with the specified command using execve()
+- Suspends execution of the parent process using wait() until the child terminates
+- Returns 0 on success, or appropriate error statuses if fork or execution fails
 
 **Implementation:**
--File: `exec.c`
--Function: `int exec(char *av[])`
--Uses system calls `fork()`, `execve()`, and `wait()`
--Leverages the external environ variable to pass the environment state to the new program
+- File: `exec.c`
+- Function: `int exec(char *av[])`
+- Uses system calls `fork()`, `execve()`, and `wait()`
+- Leverages the external environ variable to pass the environment state to the new program
