@@ -23,7 +23,7 @@ int exec(char *av[])
 		actual_command = get_path(*av);
 		if (actual_command == NULL)
 		{
-			fprintf(stderr, "command not found\n");
+			fprintf(stderr, "./hsh: 1: %s: not found\n", *av);
 			exit(127);
 		}
 		if (execve(actual_command, av, environ) == -1)
