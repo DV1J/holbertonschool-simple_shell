@@ -9,6 +9,7 @@ int exec(char *av[])
 {
 	pid_t cpid;
 	int finish;
+	char *actual_command = NULL;
 
 	cpid = fork();
 
@@ -19,7 +20,8 @@ int exec(char *av[])
 	}
 	else if (cpid == 0)
 	{
-		if (execve(av[0], av, environ) == -1)
+		actual_command = get_path(*av);
+		if (execve(actual_command, av, environ) == -1)
 		{
 			perror("Execve failed");
 			return (127);
