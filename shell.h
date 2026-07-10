@@ -22,5 +22,5 @@ int exec(char *av[]);
 char *get_line(void);
 int token(char *line, char *av[]);
 int env_builtin(void);
-
+char *get_path(char *command);
 #endif
