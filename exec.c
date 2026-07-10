@@ -25,7 +25,7 @@ int exec(char *av[])
 		{
 			fprintf(stderr, "command not found\n");
 			free(actual_command);
-			exit(126);
+			exit(127);
 		}
 		if (execve(actual_command, av, environ) == -1)
 		{
