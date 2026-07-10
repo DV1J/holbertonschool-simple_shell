@@ -21,10 +21,17 @@ int exec(char *av[])
 	else if (cpid == 0)
 	{
 		actual_command = get_path(*av);
+		if (actual_command == NULL)
+		{
+			fprintf(stderr, "command not found\n");
+			free(actual_command);
+			exit(126);
+		}
 		if (execve(actual_command, av, environ) == -1)
 		{
 			perror("Execve failed");
-			return (127);
+			free(actual_command);
+			exit(127);
 		}
 	}
 	else
