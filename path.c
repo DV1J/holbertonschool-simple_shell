@@ -40,12 +40,10 @@ char *get_path(char *command)
 			}
 		}
 		free(path_copy);
-
-		if (stat(command, &buffer) == 0)
-		{
-			return (strdup(command));
-		}
-		return (NULL);
+	}
+	if (stat(command, &buffer) == 0)
+	{
+		return (strdup(command));
 	}
 	return (NULL);
 }
