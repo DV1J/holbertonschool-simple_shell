@@ -15,7 +15,7 @@ int exec(char *av[])
 	if (actual_command == NULL)
 	{
 		fprintf(stderr, "./hsh: 1: %s: not found\n", *av);
-		return (-1);
+		return (127);
 	}
 
 	cpid = fork();
@@ -24,7 +24,7 @@ int exec(char *av[])
 	{
 		perror("Fork unsucessful");
 		free(actual_command);
-		return (-1);
+		return (127);
 	}
 	else if (cpid == 0)
 	{

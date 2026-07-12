@@ -9,6 +9,7 @@ int main(void)
 	char *input;
 	char *av[MAX_ARGS];
 	int inter = isatty(STDIN_FILENO);
+	int status = 0;
 
 	while (1)
 	{
@@ -37,15 +38,14 @@ int main(void)
 			free(input);
 			break;
 		}
-if (strcmp(av[0], "env") == 0)
-{
-	env_builtin();
-	free(input);
-	continue;
-}
-		exec(av);
-
+		if (strcmp(av[0], "env") == 0)
+		{
+			env_builtin();
+			free(input);
+			continue;
+		}
+		status = exec(av);
 		free(input);
 	}
-	return (0);
+	return (status);
 }
