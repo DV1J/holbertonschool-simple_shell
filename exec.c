@@ -11,6 +11,13 @@ int exec(char *av[])
 	int finish;
 	char *actual_command = NULL;
 
+	actual_command = get_path(*av);
+	if (actual_command == NULL)
+	{
+		fprintf(stderr, "./hsh: 1: %s: not found\n", *av);
+		return (-1);
+	}
+
 	cpid = fork();
 
 	if (cpid == -1)
@@ -20,12 +27,6 @@ int exec(char *av[])
 	}
 	else if (cpid == 0)
 	{
-		actual_command = get_path(*av);
-		if (actual_command == NULL)
-		{
-			fprintf(stderr, "./hsh: 1: %s: not found\n", *av);
-			exit(127);
-		}
 		if (execve(actual_command, av, environ) == -1)
 		{
 			perror("Execve failed");
@@ -36,6 +37,7 @@ int exec(char *av[])
 	else
 	{
 		wait(&finish);
+		free(actual_command);
 	}
 	return (0);
 }
