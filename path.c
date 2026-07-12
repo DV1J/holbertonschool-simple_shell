@@ -7,10 +7,21 @@
 char *get_path(char *command)
 {
 	char *path, *path_copy, *path_token, *file_path;
-	int cmd_length, directory_length;
+	int cmd_length, directory_length, i;
 	struct stat buffer;
+	
+	path = NULL;
+	i = 0;
 
-	path = getenv("PATH");
+	while (environ[i] != NULL)
+	{
+		if (strncmp(environ[i], "PATH=", 5) == 0)
+		{
+			path = environ[i] + 5;
+			break;
+		}
+		i++;
+	}
 
 	if (!path || path[0] == '\0')
 	{
