@@ -13,6 +13,13 @@ char *get_path(char *command)
 	path = NULL;
 	i = 0;
 
+	if (strchr(command, '/') != NULL)
+	{
+		if (stat(command, &buffer) == 0)
+			return (strdup(command));
+		return (NULL);
+	}
+
 	while (environ[i] != NULL)
 	{
 		if (strncmp(environ[i], "PATH=", 5) == 0)
