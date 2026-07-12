@@ -1,0 +1,124 @@
+.TH SIMPLE_SHELL 1 "JULY 2026" "Holberton School" "Simple Shell Man Page"
+.SH NAME
+simple_shell \- a simple UNIX command interpreter
+.SH SYNOPSIS
+.B simple_shell
+.SH DESCRIPTION
+.B simple_shell
+is a command language interpreter that executes commands read from the 
+standard input. It is a simplified implementation of a UNIX shell for 
+educational purposes.
+.PP
+The shell displays a prompt and waits for the user to type a command.
+Commands are executed using fork() and execve() system calls.
+The shell searches the PATH environment variable to locate executables.
+.SH INVOCATION
+If no arguments are specified, simple_shell reads and executes commands 
+from the standard input. A prompt is displayed after each command execution.
+.SH BUILT-IN COMMANDS
+.TP
+.B env
+Display all current environment variables in NAME=value format.
+Returns 0 on success.
+.TP
+.B exit
+Exit the shell and return to the parent process.
+.SH COMMAND EXECUTION
+When a command is entered, the shell performs the following steps:
+.TP
+1. Parse the command line into tokens
+.TP
+2. Check if command is a built-in (env, exit)
+.TP
+3. Search PATH for the executable using get_path()
+.TP
+4. Fork a child process using fork()
+.TP
+5. Execute the command using execve() in the child
+.TP
+6. Wait for the child process to complete using wait()
+.SH EXIT STATUS
+.B simple_shell
+exits with one of the following values:
+.TP
+.B 0
+Successful completion.
+.TP
+.B 127
+Command not found or execve() failed.
+.TP
+.B Other
+Exit status of the command executed.
+.SH EXAMPLES
+The following examples show basic usage of simple_shell:
+.PP
+.B Example 1: List files
+.TP
+$ ./hsh
+.TP
+$ ls
+.TP
+file1.c  file2.c  shell.h
+.PP
+.B Example 2: Use absolute path
+.TP
+$ /bin/ls -l
+.TP
+-rw-r--r-- 1 user user 412 file1.c
+.PP
+.B Example 3: Print environment
+.TP
+$ env
+.TP
+USER=julien
+.TP
+HOME=/home/julien
+.TP
+PATH=/usr/bin:/bin:...
+.PP
+.B Example 4: Exit shell
+.TP
+$ exit
+.SH FILES
+.TP
+.B main.c
+Main shell loop and command routing
+.TP
+.B environ.c
+Built-in env command implementation
+.TP
+.B exit.c
+Built-in exit command implementation
+.TP
+.B exec.c
+Process execution using fork(), execve(), and wait()
+.TP
+.B getline.c
+User input reading functionality
+.TP
+.B token.c
+Command line parsing and tokenization
+.TP
+.B path.c
+PATH environment variable searching
+.TP
+.B shell.h
+Header file containing function prototypes and includes
+.SH SEE ALSO
+.B sh(1), bash(1), execve(2), fork(2), wait(2), getenv(3)
+.SH BUGS
+The simple_shell does not support the following features:
+.TP
+- Pipes (|) and redirections (>, <, >>)
+.TP
+- Special characters (", ', `, \, *, &, #)
+.TP
+- Command history or tab completion
+.TP
+- Aliases or job control
+.SH AUTHORS
+Written by the Simple Shell development team.
+See AUTHORS.md for a complete list of contributors.
+.SH NOTES
+This is a simplified shell implementation designed for educational purposes.
+It is not intended as a replacement for standard UNIX shells such as sh or bash.
