@@ -1,60 +1,68 @@
 #include "shell.h"
-/**
- *get_path - looks for full path of a command by looking for path
- *@command: command to look for
- *Return: path if found || NULL if not found
- */
-char *get_path(char *command)
-{
-	char *path, *path_copy, *path_token, *file_path;
-	int cmd_length, directory_length, i;
-	struct stat buffer;
 
-	path = NULL;
-	i = 0;
+/**
+ *_getenv_path - finds the PATH variable in the environment
+ *
+ *Return: pointer to the value of PATH, or NULL if not found
+ */
+char *_getenv_path(void)
+{
+	int i = 0;
 
 	while (environ[i] != NULL)
 	{
 		if (strncmp(environ[i], "PATH=", 5) == 0)
-		{
-			path = environ[i] + 5;
-			break;
-		}
+			return (environ[i] + 5);
 		i++;
 	}
+	return (NULL);
+}
 
-	if (path)
+/**
+ * get_path - looks for full path of a command by looking for path
+ * @command: command to look for
+ * Return: path if found || NULL if not found
+ */
+char *get_path(char *command)
+{
+	char *path_env = NULL, *path_copy = NULL, *dir = NULL, *full_path = NULL;
+	struct stat buffer;
+
+	if (!command)
+		return (NULL);
+
+	if (strchr(command, '/') != NULL)
 	{
-		path_copy = strdup(path);
-		cmd_length = strlen(command);
-		path_token = strtok(path_copy, ":");
+		if (stat(command, &buffer) == 0)
+			return (strdup(command));
+		return (NULL);
+	}
+	path_env = _getenv_path();
+	if (!path_env)
+		return (NULL);
 
-		while (path_token != NULL)
+	path_copy = strdup(path_env);
+	if (!path_copy)
+		return (NULL);
+
+	dir = strtok(path_copy, ":");
+	while (dir != NULL)
+	{
+		full_path = malloc(strlen(dir) + strlen(command) + 2);
+		if (!full_path)
 		{
-			directory_length = strlen(path_token);
-			file_path = malloc(cmd_length + directory_length + 2);
-
-			strcpy(file_path, path_token);
-			strcat(file_path, "/");
-			strcat(file_path, command);
-			strcat(file_path, "\0");
-
-			if (stat(file_path, &buffer) == 0)
-			{
-				free(path_copy);
-				return (file_path);
-			}
-			else
-			{
-				free(file_path);
-				path_token = strtok(NULL, ":");
-			}
+			free(path_copy);
+			return (NULL);
 		}
-		free(path_copy);
+		sprintf(full_path, "%s/%s", dir, command);
+		if (stat(full_path, &buffer) == 0)
+		{
+			free(path_copy);
+			return (full_path);
+		}
+		free(full_path);
+		dir = strtok(NULL, ":");
 	}
-	if (stat(command, &buffer) == 0)
-	{
-		return (strdup(command));
-	}
+	free(path_copy);
 	return (NULL);
 }

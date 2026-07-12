@@ -23,6 +23,7 @@ int exec(char *av[])
 	if (cpid == -1)
 	{
 		perror("Fork unsucessful");
+		free(actual_command);
 		return (-1);
 	}
 	else if (cpid == 0)
