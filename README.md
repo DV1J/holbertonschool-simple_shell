@@ -82,7 +82,6 @@ $ exit
 |------|---------|
 | `main.c` | Main shell loop, prompt display, command routing |
 | `environ.c` | Implementation of env built-in command |
-| `exit.c` | Implementation of exit built-in command |
 | `exec.c` | Process forking and command execution (execve) |
 | `getline.c` | User input reading |
 | `token.c` | Command line parsing and tokenization |
