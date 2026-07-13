@@ -20,7 +20,7 @@ This project implements a simple shell that:
 ## Compilation
 
 ```bash
-gcc -Wall -Werror -Wextra -pedantic -std=gnu89 main.c environ.c exit.c exec.c getline.c token.c path.c -o hsh
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -I. -o hsh
 ```
 
 ## Usage
