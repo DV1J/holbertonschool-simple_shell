@@ -39,6 +39,7 @@ int exec(char *av[])
 	{
 		wait(&finish);
 		free(actual_command);
+		return (finish / 256);
 	}
 	return (0);
 }
