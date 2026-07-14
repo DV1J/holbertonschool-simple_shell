@@ -73,8 +73,7 @@ $ exit
 ```
 
 **Implementation:**
-- File: `exit.c`
-- Function: `int exit_builtin(void)`
+- main.c && exec.c
 
 ## Project Files
 
